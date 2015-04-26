@@ -20,7 +20,12 @@ public class Taschenrechner implements BundleActivator {
 		ServiceReference reference[] = context.getServiceReferences(Operation.class.getName(), null);
 		for (ServiceReference serviceReference : reference) {
 			service = (Operation) context.getService(serviceReference);
-			System.out.println(service.getSign());
+			System.out.println("Debug: Added Operation: [" + service.getSign() + "]");
+			double numberA = Math.floor(Math.random() * 1000) / 10;
+			double numberB = Math.floor(Math.random() * 1000) / 10;
+			double solution = Math.floor(service.calculate(numberA, numberB) * 10) / 10;
+			System.out.println("Debug: Calculation: [" + numberA + "][" + service.getSign() + "][" + 
+					numberB + "][ equals: [" + solution + "]");
 		}
 		//service = (Operation) context.getService(reference);
 		//System.out.println(service.getSign());
