@@ -1,6 +1,7 @@
 package de.cjt.taschenrechner;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
@@ -14,49 +15,37 @@ public class Taschenrechner implements BundleActivator {
 	Operation service = null;
 
 	public void start(BundleContext context) throws Exception {
-		System.out.println("Starting quoteconsumer bundles");
+		System.out.println("Starting Calculator Bundle and Referenced Bundles");
 
-		//ServiceReference reference = context.getServiceReference(Operation.class.getName());
-		ServiceReference reference[] = context.getServiceReferences(Operation.class.getName(), null);
-		for (ServiceReference serviceReference : reference) {
+		// Find Services to be used
+		context.getServiceReferences(Operation.class, null);
+		Collection<ServiceReference<Operation>> reference = context.getServiceReferences(Operation.class, null);
+		for (ServiceReference<Operation> serviceReference : reference) {
+			// Cast them and use them
 			service = (Operation) context.getService(serviceReference);
-			System.out.println("Debug: Added Operation: [" + service.getSign() + "]");
+			System.out.println("Debug: Found Operation: [" + service.getSign() + "]");
 			double numberA = Math.floor(Math.random() * 1000) / 10;
 			double numberB = Math.floor(Math.random() * 1000) / 10;
 			double solution = Math.floor(service.calculate(numberA, numberB) * 10) / 10;
 			System.out.println("Debug: Calculation: [" + numberA + "][" + service.getSign() + "][" + 
 					numberB + "][ equals: [" + solution + "]");
 		}
-		//service = (Operation) context.getService(reference);
-		//System.out.println(service.getSign());
 	}
 
+	// Bind services to be used by this Service
 	protected void bindOperation(Operation operation) {
 		if (operation != null && !operations.contains(operation)) {
 			operations.add(operation);
-			System.out.println("Debug: Added Operation: [" + operation.getSign() + "]");
+			System.out.println("Debug: DS Added Operation: [" + operation.getSign() + "]");
 		}
 	}
 
+	//Unbind services, that are removed
 	protected void unbindOperation(Operation operation) {
 		if (operation != null && operations.contains(operation)) {
 			operations.remove(operation);
-			System.out.println("Debug: Removed Operation: [" + operation.getSign() + "]");
+			System.out.println("Debug: DS Removed Operation: [" + operation.getSign() + "]");
 		}
-	}
-
-	private void listAllOperations() {
-		System.out.println("Debug: Listing all [" + operations.size() + "] Operations");
-		for (Operation operation : operations) {
-			System.out.println("Debug: OperationSign: [" + operation.getSign() + "] has Priority: [" + 
-					operation.getPriority() + "]");
-		}
-	}
-
-	public static void main(String[] args) {
-		System.out.println("Debug: Programm has started!");
-		Taschenrechner rechner = new Taschenrechner();
-		rechner.listAllOperations();
 	}
 
 	@Override
