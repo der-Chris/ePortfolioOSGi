@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Minus
+Bundle-SymbolicName: de.cjt.operation.minus;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Import-Package: de.cjt.operation
+Service-Component: OSGI-INF/component.xml
+Bundle-ActivationPolicy: lazy
