@@ -1,5 +1,10 @@
 package de.cjt.operation;
 
+/**
+ * Declared the Service, that can be Consumed
+ * @author christianverdion
+ *
+ */
 public interface Operation {
 
 	/**

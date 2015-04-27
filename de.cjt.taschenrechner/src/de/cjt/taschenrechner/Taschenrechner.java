@@ -32,7 +32,8 @@ public class Taschenrechner implements BundleActivator {
 		}
 	}
 
-	// Bind services to be used by this Service
+	// Bind services to be used by this Service with Declarative Services
+	// Will be bound after the Constructor has been executed!
 	protected void bindOperation(Operation operation) {
 		if (operation != null && !operations.contains(operation)) {
 			operations.add(operation);
@@ -40,7 +41,7 @@ public class Taschenrechner implements BundleActivator {
 		}
 	}
 
-	//Unbind services, that are removed
+	//Unbind services, that are removed with Declarative Services
 	protected void unbindOperation(Operation operation) {
 		if (operation != null && operations.contains(operation)) {
 			operations.remove(operation);

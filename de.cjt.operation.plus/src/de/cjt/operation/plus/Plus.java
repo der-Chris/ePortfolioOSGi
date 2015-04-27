@@ -2,6 +2,11 @@ package de.cjt.operation.plus;
 
 import de.cjt.operation.Operation;
 
+/**
+ * Implements the Operator Service
+ * @author christianverdion
+ *
+ */
 public class Plus implements Operation {
 
 	@Override

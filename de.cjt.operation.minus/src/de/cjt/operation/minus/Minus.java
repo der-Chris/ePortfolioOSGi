@@ -2,6 +2,11 @@ package de.cjt.operation.minus;
 
 import de.cjt.operation.Operation;
 
+/**
+ * Implements the Operator Service
+ * @author christianverdion
+ *
+ */
 public class Minus implements Operation {
 
 	@Override
